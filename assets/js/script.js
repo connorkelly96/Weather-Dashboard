@@ -52,7 +52,7 @@ function todayWeather(searchValue) {
 function UVIndex(lat, lon) {
     $.ajax({
         type: "GET",
-        url: "http://api.openweathermap.org/data/2.5/uvi?appid=f20ddcfc31a9d7fcb9a3ce5ef4c9596f&units=imperial" + lat + "&lon=" + lon,
+        url: "http://api.openweathermap.org/data/2.5/uvi?&appid=f20ddcfc31a9d7fcb9a3ce5ef4c9596f&units=imperial" + lat + "&lon=" + lon,
         dataType: "json",
         success: function (data) {
             var uv = $("<p>").text("UV Index: ");
