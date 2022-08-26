@@ -18,7 +18,7 @@ function createRow(text) {
 function todayWeather(searchValue) {
     $.ajax({
         type: "GET",
-        url: "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=84b79da5e5d7c92085660485702f4ce8&units=imperial",
+        url: "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=f20ddcfc31a9d7fcb9a3ce5ef4c9596f&units=imperial",
         dataType: "json",
         success: function (data) {
             
@@ -49,10 +49,34 @@ function todayWeather(searchValue) {
 		});
 }
 
+function UVIndex(lat, lon) {
+    $.ajax({
+        type: "GET",
+        url: "http://api.openweathermap.org/data/2.5/uvi?appid=f20ddcfc31a9d7fcb9a3ce5ef4c9596f&units=imperial" + lat + "&lon=" + lon,
+        dataType: "json",
+        success: function (data) {
+            var uv = $("<p>").text("UV Index: ");
+            var btn = $("<span>").addClass("btn btn-sm").text(data.value);
+
+            if (data.value < 3) {
+                btn.addClass("btn-success");
+            }
+            else if (data.value < 7) {
+                btn.addClass("btn-warning");
+            }
+            else {
+                btn.addClass("btn-danger");
+            }
+
+            $("#current-weather .card-body").append(uv.append(btn));
+        }
+    });
+}
+
 function fiveDayForecast(searchValue) {
 		$.ajax({
 			type: "GET",
-			url: "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=84b79da5e5d7c92085660485702f4ce8&units=imperial",
+			url: "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=f20ddcfc31a9d7fcb9a3ce5ef4c9596f&units=imperial",
 			dataType: "json",
 			success: function (data) {
 			
@@ -61,7 +85,7 @@ function fiveDayForecast(searchValue) {
 			
 				for (var i = 0; i < data.list.length; i++) {
 				
-					if (data.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+					if (data.list[i].dt_txt.indexOf("12:00:00") !== -1) {
 					
 						var col = $("<div>").addClass("col-md-2");
 						var card = $("<div>").addClass("card bg-primary text-white");
@@ -83,31 +107,6 @@ function fiveDayForecast(searchValue) {
 			}
 		});
 }
-
-function UVIndex(lat, lon) {
-		$.ajax({
-			type: "GET",
-			url: "http://api.openweathermap.org/data/2.5/uvi?appid=84b79da5e5d7c92085660485702f4ce8&units=imperial" + lat + "&lon=" + lon,
-			dataType: "json",
-			success: function (data) {
-				var uv = $("<p>").text("UV Index: ");
-				var btn = $("<span>").addClass("btn btn-sm").text(data.value);
-
-				if (data.value < 3) {
-					btn.addClass("btn-success");
-				}
-				else if (data.value < 7) {
-					btn.addClass("btn-warning");
-				}
-				else {
-					btn.addClass("btn-danger");
-				}
-
-				$("#current-weather .card-body").append(uv.append(btn));
-			}
-		});
-}
-
 	
 var history = JSON.parse(window.localStorage.getItem("history")) || [];
 
