@@ -1,5 +1,5 @@
 function initPage() {
-    const inputEl = document.getElementById("city-input");
+    const cityEl = document.getElementById("enter-city");
     const searchEl = document.getElementById("search-button");
     const clearEl = document.getElementById("clear-history");
     const nameEl = document.getElementById("city-name");
@@ -12,7 +12,7 @@ function initPage() {
     var fivedayEl = document.getElementById("fiveday-header");
     var todayweatherEl = document.getElementById("today-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-    console.log(searchHistory);
+
 
     const APIKey = "f20ddcfc31a9d7fcb9a3ce5ef4c9596f";
 
@@ -24,7 +24,7 @@ function initPage() {
                 todayweatherEl.classList.remove("d-none");
 
                 const currentDate = new Date(response.data.dt * 1000);
-                console.log(currentDate);
+
                 const day = currentDate.getDate();
                 const month = currentDate.getMonth() + 1;
                 const year = currentDate.getFullYear();
@@ -54,7 +54,7 @@ function initPage() {
                     .then(function (response) {
 
                         fivedayEl.classList.remove("d-none");
-                        console.log(response);
+
                         const forecastEls = document.querySelectorAll(".forecast");
                         for (i = 0; i < forecastEls.length; i++) {
                             forecastEls[i].innerHTML = "";
@@ -83,15 +83,15 @@ function initPage() {
             });
 }
 
-searchEl.addEventListener("click", function () {
-    const searchTerm = inputEl.value;
+searchEl.addEventListener("click", function() {
+    const searchTerm = cityEl.value;
     getWeather(searchTerm);
     searchHistory.push(searchTerm);
     localStorage.setItem("search", JSON.stringify(searchHistory));
     renderSearchHistory();
 })
 
-clearEl.addEventListener("click", function () {
+clearEl.addEventListener("click", function() {
     localStorage.clear();
     searchHistory = [];
     renderSearchHistory();
@@ -120,5 +120,5 @@ renderSearchHistory();
 if (searchHistory.length > 0) {
     getWeather(searchHistory[searchHistory.length - 1]);
 }
-
+};
 initPage();
