@@ -1,5 +1,5 @@
 function initPage() {
-    const cityEl = document.getElementById("enter-city");
+    const cityEl = document.getElementById("search-value");
     const searchEl = document.getElementById("search-btn");
     const clearEl = document.getElementById("clear-history");
     const nameEl = document.getElementById("city-name");
