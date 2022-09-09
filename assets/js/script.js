@@ -1,6 +1,6 @@
 function initPage() {
     const cityEl = document.getElementById("enter-city");
-    const searchEl = document.getElementById("search-button");
+    const searchEl = document.getElementById("search-btn");
     const clearEl = document.getElementById("clear-history");
     const nameEl = document.getElementById("city-name");
     const currentPicEl = document.getElementById("current-pic");
@@ -119,6 +119,7 @@ function renderSearchHistory() {
 renderSearchHistory();
 if (searchHistory.length > 0) {
     getWeather(searchHistory[searchHistory.length - 1]);
+    }
 }
-};
+
 initPage();
